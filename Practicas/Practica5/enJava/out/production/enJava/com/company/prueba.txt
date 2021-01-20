@@ -1,0 +1,6 @@
+B->E
+G->gaG
+G->baG
+G->Ba
+G->aBc
+B->Gc
