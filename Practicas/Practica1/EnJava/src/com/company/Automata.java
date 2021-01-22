@@ -8,7 +8,8 @@ public class Automata {
     private int EdoInical;
     private int numestados;//aux
     private ArrayList<Estado> Estados= new ArrayList<Estado>();
-
+    private boolean AFN;
+    private boolean AFD;
     public Automata(){
         Simbolo="";
         EdoInical=0;
@@ -54,12 +55,10 @@ public class Automata {
     }
 
     public boolean valEstado(int origen){
-        Estados.size();
         int i=0;
         Estado a=new Estado();
         while (i<Estados.size()){
             a= Estados.get(i);
-            //System.out.println("***"+a.getEtiqueta());
             if(a.getEtiqueta()==origen){
                 return true;
             }
@@ -87,14 +86,58 @@ public class Automata {
         if(valEstado(Integer.parseInt(info[0]))){
             Estado a=new Estado();
             a= getEstado(Integer.parseInt(info[0]));
-            // 2 el simbolo, 1 destino
+            // 2 simbolo    1 destino
             a.addTransicion(info[2].charAt(0),Integer.parseInt(info[1]));
+
         }else {
             addEstado(info);
         }
     }
 
-    public boolean acepta(String cadena){
+    public boolean esAFN(){
+        int i=0;
+        Estado a= new Estado();
+        while (i<Estados.size()){
+            a= Estados.get(i);
+            if(a.findDestinoSimbolo()){
+                return true;
+            }
+
+            i++;
+        }
+        return false;
+    }
+
+    public boolean esAFD(){
+        int i=0;
+        Estado a= new Estado();
+        while (i<Estados.size()){
+            a= Estados.get(i);
+            if(a.findDestinoSimbolo()){
+                return false;
+            }
+
+            i++;
+        }
+        return true;
+    }
+
+    public String getEdoFinales() {
+        String finales="";int i=0;
+        while (i<EdoFinales.size()){
+            if(i==EdoFinales.size()-1) {
+                finales += EdoFinales.get(i);
+            }else{
+                finales += EdoFinales.get(i) + ",";
+            }
+            i++;
+        }
+        return finales;
+    }
+
+
+
+    /*   public boolean acepta(String cadena){
         //Simbre iniciamos con el inicial
         if(getEdoInical()>0){
             Estado a=getEstado(getEdoInical());
@@ -102,8 +145,8 @@ public class Automata {
             int i=0;
             //while(i<cadena.length()){
                 //if(a.buscarTransicion(cadena.charAt(i))) {
-                String posibleCamino=a.buscarTransicion(cadena.charAt(i));
-                System.out.println(posibleCamino);
+               // String posibleCamino=a.buscarTransicion(cadena.charAt(i));
+                //System.out.println(posibleCamino);
                     //break;
                 //}
                 //i++;
@@ -112,5 +155,5 @@ public class Automata {
             return true;
         }
         return false;
-    }
+    }*/
 }
