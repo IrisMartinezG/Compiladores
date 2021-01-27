@@ -8,12 +8,11 @@ package automata;
 import java.util.ArrayList;
 
 public class Automata {
-    private String Simbolo;//el alfabeto qeu tiene el automata
-    private ArrayList<Integer> EdoFinales = new ArrayList<Integer>();
-    private int EdoInical;
-    private int numestados;//aux: aumenta cada vez que se agrega un nuevo estado
-    private ArrayList<Estado> Estados= new ArrayList<Estado>();
-
+    protected String Simbolo;//el alfabeto qeu tiene el automata
+    protected ArrayList<Integer> EdoFinales = new ArrayList<Integer>();
+    protected int EdoInical;
+    protected int numestados;//aux: aumenta cada vez que se agrega un nuevo estado
+    protected ArrayList<Estado> Estados= new ArrayList<Estado>();
 
     public Automata(){
         Simbolo ="";
@@ -62,13 +61,7 @@ public class Automata {
     public boolean validarEstado(int etiqueta){
         int i=0;
         Estado a=new Estado();
-        while (i<Estados.size()){
-            a= Estados.get(i);
-            if(a.obtenerEtiqueta()==etiqueta){
-                return true;
-            }
-            i++;
-        }
+
         return false;
     }
 

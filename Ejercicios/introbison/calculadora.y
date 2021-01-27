@@ -18,7 +18,7 @@ flex y bison estan hechos para trabajar en conjunto
 %}
 
 
-%token NUMERO
+%token NUMERO SALIDA
 
 %%
 programa:
@@ -31,6 +31,9 @@ linea: '\n'
 ;
 
 linea: expresion '\n' 	{ printf("Valor = %d\n", $1 ); }
+;
+
+linea: SALIDA '\n' 	{ return(0); }
 ;
 
 expresion: NUMERO	{$$=$1;}

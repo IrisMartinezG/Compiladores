@@ -18,7 +18,7 @@ public class GestionadorAutomata {
         return automata;
     }
 
-    public void readFile(String direccion){
+    public void leerArchivo(String direccion){
         File archivo = null;
         FileReader fr = null;
         BufferedReader br = null;
@@ -34,9 +34,9 @@ public class GestionadorAutomata {
             String linea;
             while((linea=br.readLine())!=null){
                 System.out.println(linea);
-                setInicial(linea);
-                setFinales(linea);
-                setTransicion(linea);
+                establecerInicial(linea);
+                establecerFinales(linea);
+                agregarTransicion(linea);
             }
 
         }
@@ -57,29 +57,29 @@ public class GestionadorAutomata {
 
     }
 
-    public void setInicial(String line){
+    public void establecerInicial(String line){
         if (line.contains("inicial:")){
             String[] a=line.split("inicial:");
-            automata.setEdoInical(Integer.parseInt(a[1]));
+            automata.establecerEdoInical(Integer.parseInt(a[1]));
         }
     }
 
-    public void setFinales(String line){
+    public void establecerFinales(String line){
         if (line.contains("finales:")){
             String[] a=line.split("finales:");
             if (a[1].contains(",")){
                 String[] b=a[1].split(",");
                 int i=0;
                 while (i<b.length){
-                    automata.setFinal(Integer.parseInt(b[i]));
+                    automata.establecerFinal(Integer.parseInt(b[i]));
                     i++;
                 }
 
-            }else {automata.setFinal(Integer.parseInt(a[1]));}
+            }else {automata.establecerFinal(Integer.parseInt(a[1]));}
         }
     }
 
-    public void setTransicion(String line){
+    public void agregarTransicion(String line){
         String[] transicion=new String[3];
         if (line.contains("->")){
             String[] a=line.split("->");
@@ -88,7 +88,7 @@ public class GestionadorAutomata {
             transicion[1]=b[0];
             transicion[2]=b[1];
             //System.out.println(">>>>"+transicion[0]+" "+transicion[1]+" "+transicion[2]+" ");
-            automata.addTransicion(transicion);
+            automata.agregarTransicion(transicion);
         }
     }
 
@@ -100,21 +100,21 @@ public class GestionadorAutomata {
             fichero = new FileWriter(direccion);
             pw = new PrintWriter(fichero);
 
-            pw.println("inicial:"+A.getEdoInical());
-            pw.println("finales:"+A.getEdoFinales());
+            pw.println("inicial:"+A.obtenerEdoInical());
+            pw.println("finales:"+A.obtenerEdoFinales());
 
             int i=0;
-            System.out.println(A.getEstados().size());
+            System.out.println(A.obtenerEstados().size());
 
-            while (i<A.getEstados().size()){
+            while (i<A.obtenerEstados().size()){
                 int j=0;
-                Estado aux=A.getEstados().get(i);
-                System.out.println("Estado "+i+" :"+aux.getEtiqueta());
-                System.out.println(aux.getTransiciones().size());
-                while (j<aux.getTransiciones().size()){
-                    char[] v=aux.getTransicion(j);
+                Estado aux=A.obtenerEstados().get(i);
+                System.out.println("Estado "+i+" :"+aux.obtenerEtiqueta());
+                System.out.println(aux.obtenerTransiciones().size());
+                while (j<aux.obtenerTransiciones().size()){
+                    char[] v=aux.obtenerTransicion(j);
                     System.out.println("    Transicion "+j+" :"+v[0]+v[1]);
-                    pw.println(aux.getEtiqueta()+"->"+v[0]+","+v[1]);
+                    pw.println(aux.obtenerEtiqueta()+"->"+v[0]+","+v[1]);
                     j++;
                 }
                 i++;

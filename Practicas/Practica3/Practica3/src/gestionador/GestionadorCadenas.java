@@ -14,15 +14,15 @@ public class GestionadorCadenas {
         alfabeto="";
     }
 
-    public void setAlfabeto(String alfabeto) {
+    public void establecerAlfabeto(String alfabeto) {
         this.alfabeto = alfabeto;
     }
 
-    public String getAlfabeto() {
+    public String obtenerAlfabeto() {
         return alfabeto;
     }
 
-    public String generarcadena(){
+    public String generarCadena(){
         //randum en java
         Random rnd = new Random();
         int tam=8;

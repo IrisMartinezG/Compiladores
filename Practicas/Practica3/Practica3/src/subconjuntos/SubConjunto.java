@@ -15,7 +15,7 @@ public class SubConjunto {
         //buscamos en trasiciones del estado que que como simbolo tengan E
         int i=0;
         while (i < conjunto.size()) {
-            Estado aux=automata.getEstado(conjunto.get(i));
+            Estado aux=automata.obtenerEstado(conjunto.get(i));
             int j=0;
             while (j<aux.buscarDestino('E').size()){
                // System.out.println(aux.buscarDestino('E').get(j));
@@ -32,7 +32,7 @@ public class SubConjunto {
         ArrayList<Integer> conjuntonuevo=new ArrayList<>();
         int i=0;
         while (i < conjunto.size()) {
-            Estado aux=automata.getEstado(conjunto.get(i));
+            Estado aux=automata.obtenerEstado(conjunto.get(i));
             int j=0;
             int aux1=aux.buscarDestino(Simbolo).size();
             ArrayList<Integer> auxlis=aux.buscarDestino(Simbolo);

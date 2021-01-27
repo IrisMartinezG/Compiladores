@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         GestionadorAutomata prueba=new GestionadorAutomata();
-        prueba.readFile("prueba.af");
+        prueba.leerArchivo("prueba.af");
         //GestionadorCadenas p=new GestionadorCadenas();
         Automata a= prueba.getAutomata();
         //System.out.println(a.esAFN());

@@ -8,63 +8,63 @@ package automata;
 import java.util.ArrayList;
 
 public class Automata {
-    private String Simbolo;
-    private ArrayList<Integer> EdoFinales = new ArrayList<Integer>();
-    private int EdoInical;
-    private int numestados;//aux
-    private ArrayList<Estado> Estados= new ArrayList<Estado>();
-    private boolean AFN;
-    private boolean AFD;
+    protected String Simbolo;
+    protected ArrayList<Integer> EdoFinales = new ArrayList<Integer>();
+    protected int EdoInical;
+    protected int numestados;//aux
+    protected ArrayList<Estado> Estados= new ArrayList<Estado>();
+
+
     public Automata(){
         Simbolo="";
         EdoInical=0;
         numestados=0;
     }
 
-    public void setEdoInical(int edoInical) {
+    public void establecerEdoInical(int edoInical) {
         EdoInical = edoInical;
     }
 
-    public void setFinal(int afinal){//evitar repatidas
+    public void establecerFinal(int afinal){//evitar repatidas
         if(afinal>0){
             EdoFinales.add(afinal);
         }
     }
 
-    public ArrayList<Estado> getEstados() {
+    public ArrayList<Estado> obtenerEstados() {
         return Estados;
     }
 
-    public void setSimbolo(String a){
+    public void agregarSimbolo(String a){
         if(!Simbolo.contains(a) && !a.contains("E"))
             Simbolo+=a;
     }
 
-    public int getEdoInical() {
+    public int obtenerEdoInical() {
         return EdoInical;
     }
 
-    public String getSimbolo() {
+    public String obtenerSimbolo() {
         return Simbolo;
     }
 
-    public void addEstado(String[] info){
+    public void agregarEstado(String[] info){
         numestados++;
         //0 mi etiqueta , 1 destino , 2 el simbolo
         Estado a=new Estado();
         if(EdoFinales.contains(Integer.parseInt(info[0]))){
-            a.inEstado(Integer.parseInt(info[0]),true);
-        }else {a.inEstado(Integer.parseInt(info[0]),false);}
-        a.addTransicion(info[2].charAt(0),Integer.parseInt(info[1]));
+            a.inicializarEstado(Integer.parseInt(info[0]),true);
+        }else {a.inicializarEstado(Integer.parseInt(info[0]),false);}
+        a.agregarTransicion(info[2].charAt(0),Integer.parseInt(info[1]));
         Estados.add(numestados-1,a);
     }
 
-    public boolean valEstado(int origen){
+    public boolean validarEstado(int origen){
         int i=0;
         Estado a=new Estado();
         while (i<Estados.size()){
             a= Estados.get(i);
-            if(a.getEtiqueta()==origen){
+            if(a.obtenerEtiqueta()==origen){
                 return true;
             }
             i++;
@@ -72,13 +72,13 @@ public class Automata {
         return false;
     }
 
-    public Estado getEstado(int etiq){
+    public Estado obtenerEstado(int etiq){
         Estados.size();
         int i=0;
         Estado a= new Estado();
         while (i<Estados.size()){
             a= Estados.get(i);
-            if(a.getEtiqueta()==etiq){
+            if(a.obtenerEtiqueta()==etiq){
                 break;
             }
             i++;
@@ -86,16 +86,16 @@ public class Automata {
         return a;
     }
 
-    public void addTransicion(String[] info){
-        this.setSimbolo(info[2]);
-        if(valEstado(Integer.parseInt(info[0]))){
+    public void agregarTransicion(String[] info){
+        this.agregarSimbolo(info[2]);
+        if(validarEstado(Integer.parseInt(info[0]))){
             Estado a=new Estado();
-            a= getEstado(Integer.parseInt(info[0]));
+            a= obtenerEstado(Integer.parseInt(info[0]));
             // 2 simbolo    1 destino
-            a.addTransicion(info[2].charAt(0),Integer.parseInt(info[1]));
+            a.agregarTransicion(info[2].charAt(0),Integer.parseInt(info[1]));
 
         }else {
-            addEstado(info);
+            agregarEstado(info);
         }
     }
 
@@ -104,7 +104,7 @@ public class Automata {
         Estado a= new Estado();
         while (i<Estados.size()){
             a= Estados.get(i);
-            if(a.findDestinoSimbolo()){
+            if(a.buscarDestinoSimbolo()){
                 return true;
             }
 
@@ -118,7 +118,7 @@ public class Automata {
         Estado a= new Estado();
         while (i<Estados.size()){
             a= Estados.get(i);
-            if(a.findDestinoSimbolo()){
+            if(a.buscarDestinoSimbolo()){
                 return false;
             }
 
@@ -127,7 +127,7 @@ public class Automata {
         return true;
     }
 
-    public String getEdoFinales() {
+    public String obtenerEdoFinales() {
         String finales="";int i=0;
         while (i<EdoFinales.size()){
             if(i==EdoFinales.size()-1) {
@@ -140,25 +140,4 @@ public class Automata {
         return finales;
     }
 
-
-
-    /*public boolean acepta(String cadena){
-        //Simbre iniciamos con el inicial
-        if(getEdoInical()>0){
-            Estado a=getEstado(getEdoInical());
-            System.out.println(a.getEtiqueta());
-            int i=0;
-            //while(i<cadena.length()){
-                //if(a.buscarTransicion(cadena.charAt(i))) {
-               // String posibleCamino=a.buscarTransicion(cadena.charAt(i));
-                //System.out.println(posibleCamino);
-                    //break;
-                //}
-                //i++;
-            //}
-
-            return true;
-        }
-        return false;
-    }*/
 }
